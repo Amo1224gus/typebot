@@ -5,14 +5,14 @@ import os
 import requests
 from telethon import events, TelegramClient
 
-# Константы
+# РљРѕРЅСЃС‚Р°РЅС‚С‹
 CONFIG_FILE = "config.json"
 DEFAULT_TYPING_SPEED = 0.3
-DEFAULT_CURSOR = "█"
+DEFAULT_CURSOR = "в–€"
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/mishkago/userbot/refs/heads/main/main.py"
 SCRIPT_VERSION = "1.3"
 
-# Проверяем наличие файла конфигурации
+# РџСЂРѕРІРµСЂСЏРµРј РЅР°Р»РёС‡РёРµ С„Р°Р№Р»Р° РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 if os.path.exists(CONFIG_FILE):
     with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
         config = json.load(f)
@@ -22,9 +22,9 @@ if os.path.exists(CONFIG_FILE):
     typing_speed = config.get("typing_speed", DEFAULT_TYPING_SPEED)
     typing_cursor = config.get("typing_cursor", DEFAULT_CURSOR)
 else:
-    API_ID = int(input("Введите ваш API ID: "))
-    API_HASH = input("Введите ваш API Hash: ")
-    PHONE_NUMBER = input("Введите ваш номер телефона (в формате +375XXXXXXXXX, +7XXXXXXXXXX): ")
+    API_ID = int(input("Р’РІРµРґРёС‚Рµ РІР°С€ API ID: "))
+    API_HASH = input("Р’РІРµРґРёС‚Рµ РІР°С€ API Hash: ")
+    PHONE_NUMBER = input("Р’РІРµРґРёС‚Рµ РІР°С€ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° (РІ С„РѕСЂРјР°С‚Рµ +375XXXXXXXXX, +7XXXXXXXXXX): ")
     typing_speed = DEFAULT_TYPING_SPEED
     typing_cursor = DEFAULT_CURSOR
 
@@ -37,7 +37,7 @@ else:
             "typing_cursor": typing_cursor
         }, f)
 
-# Инициализация клиента
+# РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєР»РёРµРЅС‚Р°
 client = TelegramClient('sessions', API_ID, API_HASH, system_version='4.16.30-vxCUSTOM')
 
 @client.on(events.NewMessage(pattern=r'/p (.+)'))
@@ -57,8 +57,8 @@ async def animated_typing(event):
 
         await event.edit(typed_text)
     except Exception as e:
-        print(f"Ошибка при выполнении анимации печатания: {e}")
-        await event.reply("<b>Произошла ошибка во время выполнения команды.</b>", parse_mode='html')
+        print(f"РћС€РёР±РєР° РїСЂРё РІС‹РїРѕР»РЅРµРЅРёРё Р°РЅРёРјР°С†РёРё РїРµС‡Р°С‚Р°РЅРёСЏ: {e}")
+        await event.reply("<b>РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РІРѕ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹.</b>", parse_mode='html')
 
 @client.on(events.NewMessage(pattern=r'/cursor (.+)'))
 async def set_cursor(event):
@@ -76,10 +76,10 @@ async def set_cursor(event):
         with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
             json.dump(config, f)
 
-        await event.reply(f"<b>Курсор изменён на: {typing_cursor}</b>", parse_mode='html')
+        await event.reply(f"<b>РљСѓСЂСЃРѕСЂ РёР·РјРµРЅС‘РЅ РЅР°: {typing_cursor}</b>", parse_mode='html')
     except Exception as e:
-        print(f"Ошибка при изменении курсора: {e}")
-        await event.reply("<b>Произошла ошибка при изменении курсора.</b>", parse_mode='html')
+        print(f"РћС€РёР±РєР° РїСЂРё РёР·РјРµРЅРµРЅРёРё РєСѓСЂСЃРѕСЂР°: {e}")
+        await event.reply("<b>РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё РёР·РјРµРЅРµРЅРёРё РєСѓСЂСЃРѕСЂР°.</b>", parse_mode='html')
 
 @client.on(events.NewMessage(pattern=r'/reset'))
 async def reset_settings(event):
@@ -98,19 +98,18 @@ async def reset_settings(event):
         with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
             json.dump(config, f)
 
-        await event.reply("<b>Настройки сброшены до значений по умолчанию.</b>", parse_mode='html')
+        await event.reply("<b>РќР°СЃС‚СЂРѕР№РєРё СЃР±СЂРѕС€РµРЅС‹ РґРѕ Р·РЅР°С‡РµРЅРёР№ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.</b>", parse_mode='html')
     except Exception as e:
-        print(f"Ошибка при сбросе настроек: {e}")
-        await event.reply("<b>Произошла ошибка при сбросе настроек.</b>", parse_mode='html')
+        print(f"РћС€РёР±РєР° РїСЂРё СЃР±СЂРѕСЃРµ РЅР°СЃС‚СЂРѕРµРє: {e}")
+        await event.reply("<b>РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё СЃР±СЂРѕСЃРµ РЅР°СЃС‚СЂРѕРµРє.</b>", parse_mode='html')
 
 async def main():
-    print(f"Запуск main()
-Версия скрипта: {SCRIPT_VERSION}")
+    print(f"Р—Р°РїСѓСЃРє main()\nР’РµСЂСЃРёСЏ СЃРєСЂРёРїС‚Р°: {SCRIPT_VERSION}")
     await client.start(phone=PHONE_NUMBER)
-    print("Скрипт успешно запущен! Для использования:")
-    print("- /p (текст) для анимации печатания.")
-    print("- /cursor (символ) для изменения курсора.")
-    print("- /reset для сброса настроек.")
+    print("РЎРєСЂРёРїС‚ СѓСЃРїРµС€РЅРѕ Р·Р°РїСѓС‰РµРЅ! Р”Р»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ:")
+    print("- /p (С‚РµРєСЃС‚) РґР»СЏ Р°РЅРёРјР°С†РёРё РїРµС‡Р°С‚Р°РЅРёСЏ.")
+    print("- /cursor (СЃРёРјРІРѕР») РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РєСѓСЂСЃРѕСЂР°.")
+    print("- /reset РґР»СЏ СЃР±СЂРѕСЃР° РЅР°СЃС‚СЂРѕРµРє.")
     await client.run_until_disconnected()
 
 if __name__ == "__main__":
